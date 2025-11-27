@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Grpc.Core;
+using DBService.DBManager;
 using Microsoft.Extensions.Logging;
 
 namespace DBService.Services
@@ -8,10 +9,12 @@ namespace DBService.Services
     public class MyDBService : DB.DB.DBBase
     {
         private readonly ILogger<MyDBService> _logger;
+        private DBManager.DBManager _dbManager;
 
-        public MyDBService(ILogger<MyDBService> logger)
+        public MyDBService(ILogger<MyDBService> logger, DBManager.DBManager dbManager)
         {
             _logger = logger;
+            _dbManager = dbManager;
         }
 
         // CreateUser RPC

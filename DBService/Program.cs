@@ -1,6 +1,9 @@
+using DBService.DBManager;
 using DBService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<DBManager>();
 
 // Add services to the container.
 builder.Services.AddGrpc(options =>
