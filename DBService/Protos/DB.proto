@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+option csharp_namespace = "DB";
+
+package DB;
+
+// The greeting service definition.
+service DB {
+  // Sends a greeting
+  rpc CreateUser(CreateUserRequest) returns (CreateUserReply);
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserReply);
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserReply);
+  rpc GetUser(GetUserRequest) returns (GetUserReply);
+}
+
+// The request message containing the user's name.
+message CreateUserRequest {
+	uint64 ID = 1;
+}
+
+// The response message containing the greetings.
+message CreateUserReply {
+  string message = 1;
+}
+
+message DeleteUserRequest {
+  uint64 ID = 1;
+}
+
+message DeleteUserReply {
+  uint64 ID = 1;
+}
+
+message UpdateUserRequest {
+	uint64 ID = 1;
+	uint32 level = 2;
+	uint32 hp = 3;
+}	
+
+message UpdateUserReply {
+	uint64 ID = 1;
+	uint32 level = 2;
+	uint32 hp = 3;
+}	
+
+message GetUserRequest {
+  uint64 ID = 1;
+}	
+
+message GetUserReply {
+  uint64 ID = 1;
+  uint32 level = 2;
+  uint32 hp  = 3;
+}
