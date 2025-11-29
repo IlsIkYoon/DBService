@@ -2,6 +2,7 @@
 using Grpc.Core;
 using DBService.DBManager;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 
 namespace DBService.Services
 {
@@ -22,6 +23,13 @@ namespace DBService.Services
         {
             _logger.LogInformation($"CreateUser called with ID={request.ID}");
 
+            bool retval = _dbManager.CreateCharacter(request.ID);
+
+            if(retval == false)
+            {
+                Debugger.Break();
+            }
+
             // 예시: 임시 메시지 반환
             var reply = new DB.CreateUserReply
             {
@@ -38,6 +46,13 @@ namespace DBService.Services
         {
             _logger.LogInformation($"DeleteUser called with ID={request.ID}");
 
+            bool retval = _dbManager.DeleteCharacter(request.ID);
+
+            if(retval == false)
+            {
+                Debugger.Break();
+            }
+
             var reply = new DB.DeleteUserReply
             {
                 ID = request.ID
@@ -50,6 +65,13 @@ namespace DBService.Services
         public override Task<DB.UpdateUserReply> UpdateUser(DB.UpdateUserRequest request, ServerCallContext context)
         {
             _logger.LogInformation($"UpdateUser called with ID={request.ID}, Level={request.Level}, HP={request.Hp}");
+
+            bool retval = _dbManager.UpdateCharacter(request.ID, request.Level, request.Hp);
+
+            if(retval == false)
+            {
+                Debugger.Break();
+            }
 
             var reply = new DB.UpdateUserReply
             {
@@ -65,6 +87,9 @@ namespace DBService.Services
         public override Task<DB.GetUserReply> GetUser(DB.GetUserRequest request, ServerCallContext context)
         {
             _logger.LogInformation($"GetUser called with ID={request.ID}");
+
+            
+
 
             // 예시: 임시 데이터 반환
             var reply = new DB.GetUserReply
