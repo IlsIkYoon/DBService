@@ -88,15 +88,15 @@ namespace DBService.Services
         {
             _logger.LogInformation($"GetUser called with ID={request.ID}");
 
-            
+            uint outLevel;
+            uint outHP;
+            _dbManager.ReadCharacter(request.ID, out outLevel, out outHP);
 
-
-            // 예시: 임시 데이터 반환
             var reply = new DB.GetUserReply
             {
                 ID = request.ID,
-                Level = 10, // 임시 값
-                Hp = 500    // 임시 값
+                Level = outLevel,
+                Hp = outHP    
             };
 
             return Task.FromResult(reply);

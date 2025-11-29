@@ -9,16 +9,12 @@ namespace DBService.DBManager
         SqlConnection connection;
 
         public DBManager()
-        {
-            //연결 확인 코드
+        { 
+            connection = new SqlConnection(connectionString);
             
-
-            using (connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                Console.WriteLine("DB 연결 성공!");
-            }
-
+            connection.Open();
+            
+            Console.WriteLine("DB 연결 성공!");
         }
 
         public bool CreateCharacter(ulong ID)
@@ -27,10 +23,11 @@ namespace DBService.DBManager
             int defaultHp = 1;
 
             //여기서부터 DB 쿼리 작업 
-            string query = "INSERT INTO UserData (UserLevel, UserHP) VALUES (@Level, @HP)";
+            string query = "INSERT INTO UserData (UserID, UserLevel, UserHP) VALUES (@ID, @Level, @HP)";
 
             using (SqlCommand cmd = new SqlCommand(query, connection))
             {
+                cmd.Parameters.AddWithValue("@ID", (int)ID);
                 cmd.Parameters.AddWithValue("@Level", defaultLevel);
                 cmd.Parameters.AddWithValue("@HP", defaultHp);
 
@@ -50,7 +47,7 @@ namespace DBService.DBManager
 
             using (SqlCommand cmd = new SqlCommand(query, connection))
             {
-                cmd.Parameters.AddWithValue("@ID", ID);
+                cmd.Parameters.AddWithValue("@ID", (int)ID);
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -81,9 +78,9 @@ namespace DBService.DBManager
 
             using (SqlCommand cmd = new SqlCommand(query, connection))
             {
-                cmd.Parameters.AddWithValue("@ID", ID);
-                cmd.Parameters.AddWithValue("@Level", level);
-                cmd.Parameters.AddWithValue("@HP", hp);
+                cmd.Parameters.AddWithValue("@ID", (int)ID);
+                cmd.Parameters.AddWithValue("@Level", (int)level);
+                cmd.Parameters.AddWithValue("@HP", (int)hp);
 
                 int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -99,7 +96,7 @@ namespace DBService.DBManager
 
             using (SqlCommand cmd = new SqlCommand(query, connection))
             {
-                cmd.Parameters.AddWithValue("@ID", ID);
+                cmd.Parameters.AddWithValue("@ID", (int)ID);
 
                 int rowsAffected = cmd.ExecuteNonQuery();
 
