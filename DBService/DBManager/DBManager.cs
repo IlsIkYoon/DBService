@@ -74,7 +74,7 @@ namespace DBService.DBManager
             string query = @"
                 UPDATE UserData
                 SET UserLevel = @Level, UserHP = @HP
-                WHERE ID = @ID";
+                WHERE UserID = @ID";
 
             using (SqlCommand cmd = new SqlCommand(query, connection))
             {
